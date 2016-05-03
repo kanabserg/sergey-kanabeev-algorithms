@@ -6,7 +6,7 @@ package com.epam.algorithms;
 public class QuickAndBinary extends AbstractSortAndSearch {
 
     public QuickAndBinary(int[] array) {
-        super(array);
+        this.array = array;
     }
 
     /**

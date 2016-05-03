@@ -6,7 +6,7 @@ package com.epam.algorithms;
 public class CocktailAndInterpolation extends AbstractSortAndSearch {
 
     public CocktailAndInterpolation(int[] array) {
-        super(array);
+        this.array = array;
     }
 
     /**
@@ -46,22 +46,22 @@ public class CocktailAndInterpolation extends AbstractSortAndSearch {
     public int search(int key) {
         int low = 0;
         int high = array.length - 1;
-        int mid;
+        int mid = 0, first = Integer.MIN_VALUE;
 
-        while (array[low] < key && array[high] >= key) {
-            mid = low + ((key - array[low]) * (high - low)) /   (array[high] - array[low]);
+        while (high != low && array[low] <= key && array[high] >= key) {
 
-            if (array[mid] < key)
+            mid = low + ((key - array[low]) * (high - low)) / (array[high] - array[low]);
+
+            if (array[mid] == key) {
+                first = mid;
+                high = mid - 1 < 0 ? mid : mid - 1;
+            } else if (array[mid] < key) {
                 low = mid + 1;
-            else if (array[mid] > key)
+            } else {
                 high = mid - 1;
-            else
-                return mid;
+            }
         }
 
-        if (array[low] == key)
-            return low;
-        else
-            return -1;
+        return first != Integer.MIN_VALUE ? first : -(low + 1);
     }
 }

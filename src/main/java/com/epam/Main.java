@@ -6,10 +6,10 @@ import com.epam.utils.ArrayUtils;
 
 public class Main {
 
-    private static final int ARRAY_LENGTH = 20;
+    private static final int ARRAY_LENGTH = 10;
     private static final int MAX_VALUE = 10;
-    private static final int MIN_VALUE = 0;
-    private static final int FIND_VALUE = 3;
+    private static final int MIN_VALUE = 2;
+    private static final int FIND_VALUE = 6;
 
     public static void main(String[] args) {
 
@@ -38,7 +38,7 @@ public class Main {
             cocktailAndInterpolation.sort();
         System.out.println(new StringBuilder().append("Sorted Array:\n").append(cocktailAndInterpolation));
 
-        System.out.println(new StringBuilder().append("Binary search. Looking for value : ").append(FIND_VALUE));
+        System.out.println(new StringBuilder().append("InterpolationSearch. Looking for value : ").append(FIND_VALUE));
 
         index = cocktailAndInterpolation.search (FIND_VALUE);
         if (index < 0) {

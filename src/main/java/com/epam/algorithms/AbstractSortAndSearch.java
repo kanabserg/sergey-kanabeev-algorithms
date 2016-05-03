@@ -10,10 +10,6 @@ public abstract class AbstractSortAndSearch {
 
     protected int[] array;
 
-    protected AbstractSortAndSearch(int[] array) {
-        this.array = array;
-    }
-
     public int[] getArray() {
         return array;
     }
