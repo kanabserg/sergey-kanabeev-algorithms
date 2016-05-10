@@ -1,8 +1,8 @@
-package com.epam;
+package com.epam.task_1;
 
-import com.epam.algorithms.CocktailAndInterpolation;
-import com.epam.algorithms.QuickAndBinary;
-import com.epam.utils.ArrayUtils;
+import com.epam.task_1.algorithms.CocktailAndInterpolation;
+import com.epam.task_1.algorithms.QuickAndBinary;
+import com.epam.task_1.utils.ArrayUtils;
 
 public class Main {
 

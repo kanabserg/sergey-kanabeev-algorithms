@@ -1,4 +1,4 @@
-package com.epam.utils;
+package com.epam.task_1.utils;
 
 import java.util.Random;
 

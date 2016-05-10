@@ -1,4 +1,4 @@
-package com.epam.algorithms;
+package com.epam.task_1.algorithms;
 
 import java.util.Arrays;
 

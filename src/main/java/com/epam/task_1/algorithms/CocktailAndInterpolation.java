@@ -1,4 +1,4 @@
-package com.epam.algorithms;
+package com.epam.task_1.algorithms;
 
 /**
  * Class for CocktailSort and InterpolationSort algorithms implementation.
