@@ -71,6 +71,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
     public void remove() {
         if (size == 0) {
             System.err.println("There is no elements in list to remove"); // TODO: change to custom exception
+            return;
         }
         removeNode(head.prev);
     }
