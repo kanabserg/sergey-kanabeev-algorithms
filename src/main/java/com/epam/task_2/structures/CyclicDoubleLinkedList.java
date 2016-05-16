@@ -1,8 +1,10 @@
 package com.epam.task_2.structures;
 
+import com.epam.task_2.structures.utils.Function;
 import com.epam.task_2.structures.utils.TwoWayIterable;
 import com.epam.task_2.structures.utils.TwoWayIterator;
 
+import java.util.ConcurrentModificationException;
 import java.util.Iterator;
 import java.util.NoSuchElementException;
 
@@ -12,14 +14,15 @@ import java.util.NoSuchElementException;
  *
  * @param <T> the type of elements in nodes
  */
-public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
+public class CyclicDoubleLinkedList<T extends Comparable<T>>
         implements Iterable<T>, TwoWayIterable<T> {
 
-    private DoubleNode<T> head;
+    private DoubleNode head;
     private int size = 0;
+    private int modCount = 0;
 
     public CyclicDoubleLinkedList() {
-        head = new DoubleNode<>(null);
+        head = new DoubleNode(null);
         head.next = head;
         head.prev = head;
         size = 0;
@@ -55,7 +58,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      * Add and element to list by index. Elements next to inserted one
      * will be moved.
      *
-     * @param index index of inserting element
+     * @param index   index of inserting element
      * @param element value to be inserted to
      * @throws IndexOutOfBoundsException
      */
@@ -70,8 +73,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      */
     public void remove() {
         if (size == 0) {
-            System.err.println("There is no elements in list to remove"); // TODO: change to custom exception
-            return;
+            throw new NoSuchElementException();
         }
         removeNode(head.prev);
     }
@@ -94,7 +96,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      */
     public Object[] toArray() {
         Object[] result = new Object[size];
-        DoubleNode<T> element = head.next;
+        DoubleNode element = head.next;
         for (int i = 0; i < size; i++) {
             result[i] = element.value;
             element = element.next;
@@ -105,21 +107,21 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
     /**
      * Sort the list with MergeSort.
      */
-    public void sort(){
+    public void sort() {
         if (size > 1)
-            head.next = doSort(head.next,size);
+            head.next = doSort(head.next, size);
     }
 
     /**
      * Merge sort implementation
      *
      * @param firstEl first element in the list
-     * @param size  size of list
+     * @param size    size of list
      * @return first element in sorted list
      */
-    private DoubleNode<T> doSort(DoubleNode<T> firstEl, int size) {
+    private DoubleNode doSort(DoubleNode firstEl, int size) {
         if (size > 1) {
-            DoubleNode<T> secondEl = firstEl;
+            DoubleNode secondEl = firstEl;
             for (int i = 0; i < size / 2; i++) {
                 secondEl = secondEl.next;
             }
@@ -133,13 +135,14 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
 
     /**
      * Merging two lists
-     * @param firstEl beginning of the left list
+     *
+     * @param firstEl  beginning of the left list
      * @param secondEl beginning of the right list
-     * @param size size of total merged list
+     * @param size     size of total merged list
      * @return sorted merged list
      */
-    private DoubleNode<T> merge (DoubleNode<T> firstEl,DoubleNode<T> secondEl, int size) {
-        DoubleNode<T> result = firstEl.prev; //remember the beginning of the new list will begin after its merged
+    private DoubleNode merge(DoubleNode firstEl, DoubleNode secondEl, int size) {
+        DoubleNode result = firstEl.prev; //remember the beginning of the new list will begin after its merged
         int right = 0;
         int i = 0;
         while (i < size) {
@@ -152,7 +155,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
                     break;                  //we have merged all elements of the right list into the first list, thus break
                 if (secondEl == result)
                     result = result.prev;   //special case that we are merging the last element then the result element moves one step back.
-                DoubleNode<T> nextSecondEl = secondEl.next;
+                DoubleNode nextSecondEl = secondEl.next;
                 /*remove second*/
                 secondEl.prev.next = secondEl.next;
                 secondEl.next.prev = secondEl.prev;
@@ -171,14 +174,32 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
         return result.next;                 //return the beginning of the merged list
     }
 
-    public void map(){
-
+    /**
+     * Transform list to the new list with defined by function
+     * type.
+     *
+     * @param function function that defines hot to transform ourpur
+     * @param <IN>     input values type
+     * @param <OUT>    output values type
+     * @return transformed instance of list
+     */
+    public <IN, OUT extends Comparable<OUT>> CyclicDoubleLinkedList<OUT> map(Function<IN, OUT> function) {
+        CyclicDoubleLinkedList<OUT> newList = new CyclicDoubleLinkedList<>();
+        for (T value : this) {
+            try {
+                newList.add(function.apply((IN) value));
+            } catch (ClassCastException ex) {
+                System.err.printf("ERROR: Value %s not added, cause cannot be converted", value);
+            }
+        }
+        return newList;
     }
 
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {
-            private DoubleNode<T> current = head.next;
+            private DoubleNode current = head.next;
+            private int expectedModCount = modCount;
             private int index = 0;
 
             @Override
@@ -188,11 +209,17 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
 
             @Override
             public T next() {
+                checkForComodification();
                 if (!hasNext()) throw new NoSuchElementException();
                 T value = current.value;
                 current = current.next;
                 index++;
                 return value;
+            }
+
+            private void checkForComodification() {
+                if (modCount != expectedModCount)
+                    throw new ConcurrentModificationException();
             }
         };
     }
@@ -201,7 +228,7 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
     public TwoWayIterator<T> twoWayIterator() {
         return new TwoWayIterator<T>() {
 
-            private DoubleNode<T> current = head.next;
+            private DoubleNode current = head.next;
 
             @Override
             public T previous() {
@@ -244,11 +271,12 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      * @param pointer element after inserted one
      * @param element value to be inserted
      */
-    private void addNode(DoubleNode<T> pointer, T element) {
-        DoubleNode<T> newNode = new DoubleNode<>(element, pointer, pointer.prev);
+    private void addNode(DoubleNode pointer, T element) {
+        DoubleNode newNode = new DoubleNode(element, pointer, pointer.prev);
         pointer.prev.next = newNode;
         pointer.prev = newNode;
         size++;
+        modCount++;
     }
 
     /**
@@ -256,11 +284,12 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      *
      * @param node to be removed
      */
-    private void removeNode(DoubleNode<T> node) {
+    private void removeNode(DoubleNode node) {
         node.prev.next = node.next;
         node.next.prev = node.prev;
         node.next = node.prev = null;
         size--;
+        modCount++;
     }
 
     /**
@@ -269,30 +298,28 @@ public class CyclicDoubleLinkedList<T extends Number & Comparable<? super T>>
      * @param index represent of number of element searched for
      * @return found node
      */
-    private DoubleNode<T> node(int index) {
-        DoubleNode<T> node = head.next;
-            for (int i = 0; i < index; i++)
-                node = node.next;
+    private DoubleNode node(int index) {
+        DoubleNode node = head.next;
+        for (int i = 0; i < index; i++)
+            node = node.next;
         return node;
     }
 
     /**
      * Represent class of double linked list node
-     *
-     * @param <E> the type of elements
      */
-    private class DoubleNode<E> {
-        E value;
-        DoubleNode<E> next;
-        DoubleNode<E> prev;
+    private class DoubleNode {
+        T value;
+        DoubleNode next;
+        DoubleNode prev;
 
-        DoubleNode(E value, DoubleNode<E> next, DoubleNode<E> prev) {
+        DoubleNode(T value, DoubleNode next, DoubleNode prev) {
             this.value = value;
             this.next = next;
             this.prev = prev;
         }
 
-        DoubleNode(E value) {
+        DoubleNode(T value) {
             this.value = value;
         }
     }

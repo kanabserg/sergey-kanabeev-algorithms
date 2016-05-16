@@ -1,6 +1,7 @@
 package com.epam.task_2;
 
 import com.epam.task_2.structures.CyclicDoubleLinkedList;
+import com.epam.task_2.structures.utils.Function;
 import com.epam.task_2.structures.utils.TwoWayIterator;
 
 import java.util.Arrays;
@@ -51,5 +52,20 @@ public class Main {
         System.out.println(twoWayIterator.previous());
         System.out.println(twoWayIterator.previous());
         System.out.println(twoWayIterator.previous());
+
+        System.out.println("\nMap function test:");
+        CyclicDoubleLinkedList<String> newList = list.map(new Function<Integer, String>() {
+            @Override
+            public String apply(Integer value) {
+                return value.toString();
+            }
+        });
+        for (String value: newList) {
+            System.out.print(value);
+        }
+
+        System.out.println("\n\nException test:");
+        for (Integer s : list)
+            list.add(0);
     }
 }
