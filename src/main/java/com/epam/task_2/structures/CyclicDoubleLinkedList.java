@@ -178,16 +178,15 @@ public class CyclicDoubleLinkedList<T extends Comparable<T>>
      * Transform list to the new list with defined by function
      * type.
      *
-     * @param function function that defines hot to transform ourpur
-     * @param <IN>     input values type
+     * @param function function that defines hot to transform output
      * @param <OUT>    output values type
      * @return transformed instance of list
      */
-    public <IN, OUT extends Comparable<OUT>> CyclicDoubleLinkedList<OUT> map(Function<IN, OUT> function) {
+    public <OUT extends Comparable<OUT>> CyclicDoubleLinkedList<OUT> map(Function<T, OUT> function) {
         CyclicDoubleLinkedList<OUT> newList = new CyclicDoubleLinkedList<>();
         for (T value : this) {
             try {
-                newList.add(function.apply((IN) value));
+                newList.add(function.apply(value));
             } catch (ClassCastException ex) {
                 System.err.printf("ERROR: Value %s not added, cause cannot be converted", value);
             }
