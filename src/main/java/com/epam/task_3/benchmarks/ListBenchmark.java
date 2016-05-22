@@ -3,13 +3,13 @@ package com.epam.task_3.benchmarks;
 import java.util.*;
 
 /**
- * Class to test performance of ArrayList and LinkedList
+ * Class to tests performance of ArrayList and LinkedList
  * on add, get, remove, sort and iterator methods.
  */
 public class ListBenchmark {
 
     /**
-     * Private constructor to prevent creation of instance.
+     * Private constructor to prevent creation of consumers.
      */
     private ListBenchmark(){}
 
@@ -75,7 +75,7 @@ public class ListBenchmark {
         List<Integer> linkedList = new LinkedList<>();
         fillList(arrayList,quantity);
         fillList(linkedList,quantity);
-        System.out.printf("Iterator test on %d elements\n",quantity);
+        System.out.printf("Iterator tests on %d elements\n",quantity);
 
         // ArrayList
         long startTime = System.currentTimeMillis();
@@ -101,7 +101,7 @@ public class ListBenchmark {
         fillList(arrayList,quantity);
         fillList(linkedList,quantity);
 
-        System.out.printf("Sort test on %d elements\n",quantity);
+        System.out.printf("Sort tests on %d elements\n",quantity);
         // ArrayList
         long startTime = System.currentTimeMillis();
         Collections.sort(arrayList);

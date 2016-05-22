@@ -53,7 +53,7 @@ public class Main {
         System.out.println(twoWayIterator.previous());
         System.out.println(twoWayIterator.previous());
 
-        System.out.println("\nMap function test:");
+        System.out.println("\nMap function tests:");
         CyclicDoubleLinkedList<String> newList = list.map(new Function<Integer, String>() {
             @Override
             public String apply(Integer value) {
@@ -64,7 +64,7 @@ public class Main {
             System.out.print(value);
         }
 
-        System.out.println("\n\nException test:");
+        System.out.println("\n\nException tests:");
         for (Integer s : list)
             list.add(0);
     }

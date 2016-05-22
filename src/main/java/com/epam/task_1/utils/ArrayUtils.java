@@ -8,7 +8,7 @@ import java.util.Random;
 public class ArrayUtils {
 
     /**
-     * To prevent creation of instance
+     * To prevent creation of consumers
      */
     private ArrayUtils() {}
 

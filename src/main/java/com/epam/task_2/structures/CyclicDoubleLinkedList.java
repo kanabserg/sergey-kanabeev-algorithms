@@ -180,7 +180,7 @@ public class CyclicDoubleLinkedList<T extends Comparable<T>>
      *
      * @param function function that defines hot to transform output
      * @param <OUT>    output values type
-     * @return transformed instance of list
+     * @return transformed consumers of list
      */
     public <OUT extends Comparable<OUT>> CyclicDoubleLinkedList<OUT> map(Function<T, OUT> function) {
         CyclicDoubleLinkedList<OUT> newList = new CyclicDoubleLinkedList<>();
