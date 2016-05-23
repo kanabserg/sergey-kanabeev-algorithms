@@ -129,13 +129,15 @@ public class Injector {
             URL resource = resources.nextElement();
             dirs.add(new File(resource.getFile()));
         }
+
+        String classExt = ".class";
         List<Class<?>> classes = new ArrayList<>();
         for (File directory : dirs) {
             File[] files = directory.listFiles();
             assert files != null;
             for (File file : files) {
                 if (file.getName().endsWith(".class")) {
-                    classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - 6)));
+                    classes.add(Class.forName(packageName + '.' + file.getName().substring(0, file.getName().length() - classExt.length())));
                 }
             }
         }
