@@ -79,12 +79,10 @@ public class Injector {
      */
     private static HashMap<String, Class> getClassesAnnotation() {
         HashMap<String, Class> classesAnnotation = new HashMap<>();
-        for (Class clazz : CACHE_CLASSES) {
-            if (clazz.isAnnotationPresent(CACHE_ANNOTATION_CLASS)) {
-                String cacheName = ((Cache) clazz.getAnnotation(CACHE_ANNOTATION_CLASS)).name();
-                classesAnnotation.put(cacheName, clazz);
-            }
-        }
+        CACHE_CLASSES.stream().filter(clazz -> clazz.isAnnotationPresent(CACHE_ANNOTATION_CLASS)).forEach(clazz -> {
+            String cacheName = ((Cache) clazz.getAnnotation(CACHE_ANNOTATION_CLASS)).name();
+            classesAnnotation.put(cacheName, clazz);
+        });
         return classesAnnotation;
     }
 
