@@ -41,7 +41,7 @@ public class Philosopher implements Runnable {
                 }
             }
         } catch (InterruptedException e) {
-            System.err.println(String.format("Philospher %d thread was interrupted!", id));
+            System.err.println(String.format("Philosopher %d thread was interrupted!", id));
         }
     }
 
