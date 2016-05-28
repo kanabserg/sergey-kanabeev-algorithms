@@ -6,29 +6,17 @@ package com.epam.task_5.philosophers.oldversion;
  */
 public class Fork {
 
-    private boolean unavailable;
+    private boolean unavailable = false;
 
     public Fork() {
     }
 
-    /**
-     * Acquires the lock if it is free.
-     *
-     * @throws InterruptedException if thread was interrupted
-     */
-    synchronized void acquire() throws InterruptedException {
-        while (unavailable) {
-            wait();
-        }
-        unavailable = true;
+    public boolean isUnavailable() {
+        return unavailable;
     }
 
-    /**
-     * Releases the lock.
-     */
-    synchronized void release() {
-        unavailable = false;
-        notify();
+    public void setUnavailable(boolean unavailable) {
+        this.unavailable = unavailable;
     }
 }
 

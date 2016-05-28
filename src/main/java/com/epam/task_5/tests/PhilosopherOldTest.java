@@ -10,7 +10,7 @@ import com.epam.task_5.philosophers.oldversion.Philosopher;
 public class PhilosopherOldTest {
 
     private static final int PHILOSOPHERS_FORKS_COUNT = 5;
-    private static final int SIMULATION_MILLIS = 5_000;
+    private static final int SIMULATION_MILLIS = 1_000;
 
     /**
      * Private constructor to prevent creation of instance.

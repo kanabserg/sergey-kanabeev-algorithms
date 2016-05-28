@@ -21,6 +21,7 @@ public class Philosopher implements Runnable {
 
     /**
      * Sets to indicate whether philosopher is full.
+     *
      * @param full philosopher status
      */
     public void setFull(boolean full) {
@@ -32,14 +33,18 @@ public class Philosopher implements Runnable {
         try {
             while (!isFull) {
                 think();
-                leftFork.acquire();
-                rightFork.acquire();
-                eat();
-                rightFork.release();
-                leftFork.release();
+                synchronized (leftFork) {
+                    grabFork(leftFork);
+                    synchronized (rightFork) {
+                        grabFork(rightFork);
+                        eat();
+                        releaseFork(rightFork);
+                    }
+                    releaseFork(leftFork);
+                }
             }
         } catch (InterruptedException e) {
-            System.err.println(String.format("Philospher %d thread was interrupted!", id));
+            System.err.println(String.format("Philosopher %d thread was interrupted!", id));
         }
     }
 
@@ -61,5 +66,27 @@ public class Philosopher implements Runnable {
     private void eat() throws InterruptedException {
         System.out.println("PHILOSOPHER " + id + " EAT");
         Thread.sleep(generator.nextInt(100));
+    }
+
+    /**
+     * Grabs the monitor.
+     *
+     * @param fork monitor to grab
+     * @throws InterruptedException if thread was interrupted
+     */
+    private void grabFork(Fork fork) throws InterruptedException {
+        while (fork.isUnavailable())
+            fork.wait();
+        fork.setUnavailable(true);
+    }
+
+    /**
+     * Releases monitor.
+     *
+     * @param fork monitor to release
+     */
+    private void releaseFork(Fork fork) {
+        fork.setUnavailable(false);
+        fork.notify();
     }
 }
