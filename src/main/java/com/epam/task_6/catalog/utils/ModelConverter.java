@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
  * Utility class to convert shop catalog model to serializable form
  * and back to regular form.
  */
-class ModelConverter {
+public class ModelConverter {
 
     /**
      * Private constructor to prevent creation of consumers.
@@ -26,7 +26,7 @@ class ModelConverter {
      * @param catalog instance of regular model
      * @return serializable model
      */
-    static CatalogEntity toEntityModel(Catalog catalog) {
+    public static CatalogEntity toEntityModel(Catalog catalog) {
         Set<ArtistEntity> artists = new HashSet<>();
         LinkedList<Song> allSongs = new LinkedList<>();
         for (Artist artist : catalog.getArtists()) {
@@ -56,7 +56,7 @@ class ModelConverter {
      * @param catalog instance of serializable model
      * @return regular model
      */
-    static Catalog toRegularModel(CatalogEntity catalog){
+    public static Catalog toRegularModel(CatalogEntity catalog){
         Set<Artist> artists = new HashSet<>();
         for (ArtistEntity artist : catalog.getArtists()) {
             Set<Album> albums = new HashSet<>();

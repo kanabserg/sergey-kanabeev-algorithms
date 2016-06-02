@@ -32,7 +32,7 @@ public class CatalogEntity implements Serializable{
         return allSongs;
     }
 
-    public void setAllSongs(LinkedList<SongEntity> allSongs) {
+    public void setAllSongs(List<SongEntity> allSongs) {
         this.allSongs = allSongs;
     }
 }

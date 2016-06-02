@@ -1,14 +1,14 @@
-Исполнитель:System of a Down
-Альбом:Toxicity, Альтернатива
-Композиция:Chop Suey, 3.3
-Композиция:Toxicity, 3.39
-Композиция:Aerials, 6.11
-Альбом:Hypnotize, Альтернатива
-Композиция:Attack, 3.06
-Композиция:Lonely Day, 2.47
-Исполнитель:Serj Tankian
-Альбом:Toxicity, Альтернатива
-Композиция:Chop Suey, 3.3
-Альбом:Elect the dead, Альтернатива
-Композиция:Sky is Over, 3.39
-Композиция:Empty Walls, 3.3
+Исполнитель: System of a Down
+	Альбом: Toxicity, Альтернатива
+		Композиция: Chop Suey, 3.3
+		Композиция: Toxicity, 3.39
+		Композиция: Aerials, 6.11
+	Альбом: Hypnotize, Альтернатива
+		Композиция: Attack, 3.06
+		Композиция: Lonely Day, 2.47
+Исполнитель: Serj Tankian
+	Альбом: Toxicity, Альтернатива
+		Композиция: Chop Suey, 3.3
+	Альбом: Elect the dead, Альтернатива
+		Композиция: Sky is Over, 3.39
+		Композиция: Empty Walls, 3.3
