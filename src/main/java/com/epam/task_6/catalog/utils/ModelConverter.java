@@ -1,9 +1,9 @@
 package com.epam.task_6.catalog.utils;
 
-import com.epam.task_6.catalog.entities.AlbumEntity;
-import com.epam.task_6.catalog.entities.ArtistEntity;
-import com.epam.task_6.catalog.entities.CatalogEntity;
-import com.epam.task_6.catalog.entities.SongEntity;
+import com.epam.task_6.catalog.io.entities.AlbumEntity;
+import com.epam.task_6.catalog.io.entities.ArtistEntity;
+import com.epam.task_6.catalog.io.entities.CatalogEntity;
+import com.epam.task_6.catalog.io.entities.SongEntity;
 import com.epam.task_6.catalog.model.*;
 
 import java.util.*;
@@ -53,6 +53,9 @@ public class ModelConverter {
 
     /**
      * Converts serializable model to regular model
+     * INFO: in this task id did not considered, therefore 0 is
+     *       is passed to the constructor as id
+     *
      * @param catalog instance of serializable model
      * @return regular model
      */
@@ -64,14 +67,14 @@ public class ModelConverter {
                 Set<Song> songs = new HashSet<>();
                 for (Integer songNumber : album.getSongs()) {
                     SongEntity song = catalog.getAllSongs().get(songNumber);
-                    songs.add(new Song(song.getTitle(), song.getLength()));
+                    songs.add(new Song(0,song.getTitle(), song.getLength()));
                 }
-                albums.add(new Album(
+                albums.add(new Album(0,
                         album.getTitle(),
                         album.getGenre(),
                         songs));
             }
-            artists.add(new Artist(artist.getTitle(), albums));
+            artists.add(new Artist(0,artist.getTitle(), albums));
         }
         return new Catalog(artists);
     }

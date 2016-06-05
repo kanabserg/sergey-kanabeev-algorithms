@@ -1,4 +1,4 @@
-package com.epam.task_6.catalog.entities;
+package com.epam.task_6.catalog.io.entities;
 
 import java.io.Serializable;
 import java.util.List;
