@@ -1,14 +1,27 @@
 package com.epam.task_6.catalog.model;
 
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlAttribute;
+
 /**
- * Represents simple song with title and length
+ * Represents simple song with title and length.
  */
+@XmlAccessorType(XmlAccessType.FIELD)
 public class Song {
 
+    @XmlAttribute
+    private int id;
+    @XmlAttribute
     private String title;
+    @XmlAttribute
     private double length;
 
-    public Song(String title, double length) {
+    public Song() {
+    }
+
+    public Song(int id, String title, double length) {
+        this.id = id;
         this.title = title;
         this.length = length;
     }
@@ -19,6 +32,14 @@ public class Song {
 
     public double getLength() {
         return length;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     @Override
@@ -41,6 +62,8 @@ public class Song {
 
     @Override
     public String toString() {
-        return "\t\tTitle: " + title + ",\tLength: " + length;
+        StringBuilder sb= new StringBuilder();
+        sb.append("Title: ").append(title).append(", Length: ").append(length);
+        return sb.toString();
     }
 }
