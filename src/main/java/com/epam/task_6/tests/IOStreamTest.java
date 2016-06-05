@@ -30,7 +30,7 @@ public class IOStreamTest {
             Catalog shopCatalog = txtSerializer.readModel(FILE_PATH_IN);
             Objects.requireNonNull(shopCatalog);
             System.out.println("Model from file:");
-            shopCatalog.print();
+            System.out.println(shopCatalog);
             txtSerializer.writeModel(shopCatalog, FILE_PATH_OUT);
             System.out.println("\n---------------------------------------------------------\n");
             Serializer byteSerializer = new ByteSerializer();
@@ -38,7 +38,7 @@ public class IOStreamTest {
             Catalog deserializeCatalog = byteSerializer.readModel(FILE_PATH_SERIALIZE);
             Objects.requireNonNull(shopCatalog);
             System.out.println("Deserialize model:");
-            deserializeCatalog.print();
+            System.out.println(deserializeCatalog);
         } catch (NullPointerException e) {
             System.err.println("Failed to read catalog!");
         }
