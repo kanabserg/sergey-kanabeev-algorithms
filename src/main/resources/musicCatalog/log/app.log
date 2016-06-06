@@ -1,0 +1,3 @@
+10:45:00,957 [ERROR] class com.epam.task_6.catalog.exceptions.DAOException C:\IdeaProjects\sergey-kanabeev-algorithms\src\main\resources\musicCatalog\c1atalog.xml (Не удается найти указанный файл) at com.epam.task_6.tests.XMLTest.run(XMLTest.java:58)
+10:46:28,254 [ERROR] class java.io.FileNotFoundException C:\IdeaProjects\sergey-kanabeev-algorithms\src\main\resources\musicCatalog\c1atalog.xml (Не удается найти указанный файл) at com.epam.task_6.catalog.dao.xml.XmlArtistDAO.getAll(XmlArtistDAO.java:133)
+10:46:28,256 [ERROR] class com.epam.task_6.catalog.exceptions.DAOException C:\IdeaProjects\sergey-kanabeev-algorithms\src\main\resources\musicCatalog\c1atalog.xml (Не удается найти указанный файл) at com.epam.task_6.tests.XMLTest.run(XMLTest.java:58)

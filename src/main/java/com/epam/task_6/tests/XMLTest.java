@@ -7,53 +7,54 @@ import com.epam.task_6.catalog.model.Album;
 import com.epam.task_6.catalog.model.Artist;
 import com.epam.task_6.catalog.model.Catalog;
 import com.epam.task_6.catalog.model.Song;
+import org.apache.log4j.Logger;
 
 import java.util.HashSet;
-import java.util.Random;
 
 public class XMLTest {
 
     private static final int ID_TO_FIND = 1;
     private static final int ID_TOD_UPDATE = 3;
     private static final int ID_TO_DELETE = 3;
+    /**
+     * Logger instance.
+     */
+    private static Logger log = Logger.getLogger(XMLTest.class);
 
     public static void run() {
         DAOFactory xmlFactory = DAOFactory.newInstance(DAOFactory.XML);
-        assert xmlFactory != null;
         try {
             ArtistDAO xmlArtistDAO = xmlFactory.getArtistDAO();
 
             //DAO getAll
-            System.out.println("All artists from XML file:");
-            new Catalog(xmlArtistDAO.getAll()).print();
+            log.info("All artists from XML file:" + new Catalog(xmlArtistDAO.getAll()));
 
             //DAO find and Total song length
             Artist foundArtist = xmlArtistDAO.find(ID_TO_FIND);
             if (foundArtist != null)
-                System.out.println(String.format("Artist found by id '%d' is: '%s' with total song length: %.2f", ID_TO_FIND, foundArtist, foundArtist.songsLength()));
+                log.info(String.format("Artist found by id '%d' is: '%s' with total song length: %.2f", ID_TO_FIND, foundArtist, foundArtist.songsLength()));
 
             //DAO insert
             Artist sampleArtist = createSampleArtist();
             int insertedId = xmlArtistDAO.insert(sampleArtist);
-            System.out.println(String.format("Artist '%s' with id '%d' was inserted ", sampleArtist, insertedId));
+            log.info(String.format("Artist '%s' with id '%d' was inserted ", sampleArtist, insertedId));
 
             //DAO update
             sampleArtist.setTitle("Freddie Mercury");
             if (xmlArtistDAO.update(ID_TOD_UPDATE, sampleArtist))
-                System.out.println(String.format("Artist with id '%d' was updated successfully", ID_TOD_UPDATE));
+                log.info(String.format("Artist with id '%d' was updated successfully", ID_TOD_UPDATE));
             else
-                System.out.println(String.format("Artist with id '%d' WAS NOT updated,  because it doesn't exist", ID_TOD_UPDATE));
-            System.out.println("Changed XML file:");
-            new Catalog(xmlArtistDAO.getAll()).print();
+                log.info(String.format("Artist with id '%d' WAS NOT updated,  because it doesn't exist", ID_TOD_UPDATE));
+            log.info("Changed XML file:" + new Catalog(xmlArtistDAO.getAll()));
 
             //DAO delete
             if (xmlArtistDAO.delete(ID_TO_DELETE))
-                System.out.println(String.format("Artist with id '%d' was deleted successfully", ID_TO_DELETE));
+                log.info(String.format("Artist with id '%d' was deleted successfully", ID_TO_DELETE));
             else
-                System.out.println(String.format("Artist with id '%d' WAS NOT deleted, because it doesn't exist", ID_TO_DELETE));
+                log.info(String.format("Artist with id '%d' WAS NOT deleted, because it doesn't exist", ID_TO_DELETE));
 
-        } catch (DAOException e) {
-            e.printStackTrace();
+        } catch (DAOException | NullPointerException e) {
+            log.error(e.getClass() + " " + e.getMessage());
         }
     }
 

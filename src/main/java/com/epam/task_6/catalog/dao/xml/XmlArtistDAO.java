@@ -1,11 +1,13 @@
 package com.epam.task_6.catalog.dao.xml;
 
 import com.epam.task_6.catalog.dao.ArtistDAO;
+import com.epam.task_6.catalog.dao.factory.XmlDAOFactory;
 import com.epam.task_6.catalog.exceptions.DAOException;
 import com.epam.task_6.catalog.model.Album;
 import com.epam.task_6.catalog.model.Artist;
 import com.epam.task_6.catalog.model.Catalog;
 import com.epam.task_6.catalog.model.Song;
+import org.apache.log4j.Logger;
 import org.w3c.dom.Document;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -35,7 +37,10 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.*;
+import java.util.HashSet;
+import java.util.Optional;
+import java.util.Set;
+import java.util.Stack;
 
 /**
  * Specific realization of {@linkplain ArtistDAO}, which uses
@@ -45,9 +50,11 @@ import java.util.*;
 public class XmlArtistDAO implements ArtistDAO {
 
     /**
-     * File Path to data source
+     * Logger instance.
      */
-    private static final String FILE_PATH = "src\\main\\resources\\musicCatalog\\catalog.xml";
+    private static Logger log = Logger.getLogger(ArtistDAO.class);
+
+    private String filePath = XmlDAOFactory.getFilePath();
 
     @Override
     public int insert(Artist artist) throws DAOException {
@@ -56,8 +63,7 @@ public class XmlArtistDAO implements ArtistDAO {
             catalog.getArtists().add(artist);
             writeXML(catalog);
         } catch (JAXBException | FileNotFoundException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
         return artist.getId();
@@ -67,17 +73,16 @@ public class XmlArtistDAO implements ArtistDAO {
     public boolean delete(int id) throws DAOException {
         Node foundNode;
         try {
-            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(FILE_PATH));
+            Document doc = DocumentBuilderFactory.newInstance().newDocumentBuilder().parse(new InputSource(filePath));
 
             XPath xpath = XPathFactory.newInstance().newXPath();
             foundNode = ((NodeList) xpath.evaluate("//artist[@id=" + id + "]", doc, XPathConstants.NODESET)).item(0);
             if (foundNode != null) foundNode.getParentNode().removeChild(foundNode);
 
             Transformer transformer = TransformerFactory.newInstance().newTransformer();
-            transformer.transform(new DOMSource(doc), new StreamResult(new File(FILE_PATH)));
+            transformer.transform(new DOMSource(doc), new StreamResult(new File(filePath)));
         } catch (IOException | ParserConfigurationException | XPathExpressionException | SAXException | TransformerException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
         return foundNode != null;
@@ -92,8 +97,7 @@ public class XmlArtistDAO implements ArtistDAO {
             if (optionalArtist.isPresent())
                 artist = optionalArtist.get();
         } catch (JAXBException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
         return artist;
@@ -113,8 +117,7 @@ public class XmlArtistDAO implements ArtistDAO {
                 writeXML(catalog);
             }
         } catch (JAXBException | FileNotFoundException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
         return isUpdated;
@@ -125,11 +128,10 @@ public class XmlArtistDAO implements ArtistDAO {
         try {
             SAXParser saxParser = SAXParserFactory.newInstance().newSAXParser();
             ArtistContentHandler handler = new ArtistContentHandler();
-            saxParser.parse(new File(FILE_PATH), handler);
+            saxParser.parse(new File(filePath), handler);
             return handler.getArtists();
         } catch (IOException | ParserConfigurationException | SAXException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
     }
@@ -139,8 +141,7 @@ public class XmlArtistDAO implements ArtistDAO {
         try {
             writeXML(new Catalog(artists));
         } catch (JAXBException | FileNotFoundException e) {
-            //TODO: Logging
-            e.printStackTrace();
+            log.error(e.getClass() + " " + e.getMessage());
             throw new DAOException(e.getMessage());
         }
         return true;
@@ -159,7 +160,7 @@ public class XmlArtistDAO implements ArtistDAO {
      */
     private void writeXML(Catalog catalog) throws JAXBException, FileNotFoundException {
         Marshaller marshaller = JAXBContext.newInstance(Catalog.class).createMarshaller();
-        marshaller.marshal(catalog, new FileOutputStream(FILE_PATH));
+        marshaller.marshal(catalog, new FileOutputStream(filePath));
     }
 
     /**
@@ -172,7 +173,7 @@ public class XmlArtistDAO implements ArtistDAO {
      */
     private Catalog readXML() throws JAXBException {
         Unmarshaller unmarshaller = JAXBContext.newInstance(Catalog.class).createUnmarshaller();
-        return (Catalog) unmarshaller.unmarshal(new File(FILE_PATH));
+        return (Catalog) unmarshaller.unmarshal(new File(filePath));
     }
 
     /**

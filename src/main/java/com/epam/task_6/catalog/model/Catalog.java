@@ -33,18 +33,18 @@ public class Catalog {
         this.artists = artists;
     }
 
-    /**
-     * Prints catalog to console.
-     */
-    public void print(){
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
         for (Artist artist: artists) {
-            System.out.println("Artist: " + artist.getTitle());
+            sb.append("\nArtist: ").append(artist.getTitle());
             for (Album album:artist.getAlbums()){
-                System.out.println("\tAlbum: " +album.getTitle() + ",\tGenre: " + album.getGenre());
+                sb.append("\n\tAlbum: ").append(album.getTitle()).append(",\tGenre: ").append(album.getGenre());
                 for (Song song:album.getSongs()){
-                    System.out.println("\t\tTitle: " + song.getTitle() + ",\tLength: " + song.getLength());
+                    sb.append("\n\t\tTitle: ").append(song.getTitle()).append(",\tLength: ").append(song.getLength());
                 }
             }
         }
+        return sb.toString();
     }
 }
