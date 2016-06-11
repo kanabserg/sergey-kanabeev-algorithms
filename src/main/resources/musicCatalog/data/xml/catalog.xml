@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<catalog>
+    <artist id="1" title="System of a Down">
+        <album genre="Альтернатива" id="1" title="Toxicity">
+            <song id="1" length="3.3" title="Chop Suey"/>
+            <song id="2" length="3.39" title="Toxicity"/>
+            <song id="3" length="6.11" title="Aerials"/>
+        </album>
+        <album genre="Альтернатива" id="2" title="Hypnotize">
+            <song id="4" length="3.06" title="Attack"/>
+            <song id="5" length="2.47" title="Lonely Day"/>
+        </album>
+    </artist>
+    <artist id="2" title="Serj Tankian">
+        <album genre="Альтернатива" id="3" title="Toxicity">
+            <song id="6" length="3.3" title="Chop Suey"/>
+        </album>
+        <album genre="Альтернатива" id="4" title="Elect the dead">
+            <song id="7" length="3.39" title="Sky is Over"/>
+            <song id="8" length="3.3" title="Empty Walls"/>
+        </album>
+    </artist>
+</catalog>

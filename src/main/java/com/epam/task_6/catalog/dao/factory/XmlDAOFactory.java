@@ -12,7 +12,7 @@ public class XmlDAOFactory  extends  DAOFactory{
     /**
      * File Path to data source
      */
-    private static final String FILE_PATH = "src\\main\\resources\\musicCatalog\\catalog.xml";
+    private static final String FILE_PATH = "src\\main\\resources\\musicCatalog\\data\\xml\\catalog.xml";
 
     public static String getFilePath() {
         return FILE_PATH;

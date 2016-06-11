@@ -1,6 +1,5 @@
 package com.epam.task_6.tests;
 
-import com.epam.task_6.catalog.exceptions.InvalidFileException;
 import com.epam.task_6.catalog.io.ByteSerializer;
 import com.epam.task_6.catalog.io.Serializer;
 import com.epam.task_6.catalog.io.TextSerializer;
@@ -10,9 +9,9 @@ import java.util.Objects;
 
 public class IOStreamTest {
 
-    private static final String FILE_PATH_IN = "src\\main\\resources\\musicCatalog\\inMusic.txt";
-    private static final String FILE_PATH_OUT = "src\\main\\resources\\musicCatalog\\outMusic.txt";
-    private static final String FILE_PATH_SERIALIZE = "src\\main\\resources\\musicCatalog\\serializeMusic.catalog";
+    private static final String FILE_PATH_IN = "src\\main\\resources\\musicCatalog\\data\\serialization\\inMusic.txt";
+    private static final String FILE_PATH_OUT = "src\\main\\resources\\musicCatalog\\data\\serialization\\outMusic.txt";
+    private static final String FILE_PATH_SERIALIZE = "src\\main\\resources\\musicCatalog\\data\\serialization\\serializeMusic.catalog";
 
     /**
      * Private constructor to prevent creation of instance.
