@@ -52,7 +52,7 @@ public class JDBCTest {
      * @throws ConnectionConfigurationException if connection wasn't properly initialized
      * @throws DAOException                     if inner exception on data acces layer was thrown
      */
-    public static Catalog readXmlData() throws ConnectionConfigurationException, DAOException {
+    private static Catalog readXmlData() throws ConnectionConfigurationException, DAOException {
         DAOFactory xmlFactory = DAOFactory.newInstance(DAOFactory.XML);
         assert xmlFactory != null;
         ArtistDAO xmlArtistDAO = xmlFactory.getArtistDAO();
