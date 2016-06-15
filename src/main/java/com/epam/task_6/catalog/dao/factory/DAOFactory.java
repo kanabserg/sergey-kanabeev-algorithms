@@ -1,7 +1,7 @@
 package com.epam.task_6.catalog.dao.factory;
 
 import com.epam.task_6.catalog.dao.ArtistDAO;
-import sun.reflect.generics.reflectiveObjects.NotImplementedException;
+import com.epam.task_6.catalog.exceptions.ConnectionConfigurationException;
 
 /**
  * Interprets an Abstract Factory pattern for DAO objects.
@@ -9,7 +9,7 @@ import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 public abstract class DAOFactory {
 
     public final static int XML = 1;
-    public final static int ORACLE = 2;
+    public final static int POSTGRE = 2;
 
     /**
      * Protected constructor to force use of {@link #newInstance(int)}.
@@ -24,12 +24,12 @@ public abstract class DAOFactory {
      * @param type type of factory instance
      * @return initialized instance
      */
-    public static DAOFactory newInstance(int type) {
+    public static DAOFactory newInstance(int type) throws ConnectionConfigurationException {
         switch (type) {
             case XML:
                 return new XmlDAOFactory();
-            case ORACLE:
-                throw new NotImplementedException();
+            case POSTGRE:
+                return new PostgreDAOFactory();
             default:
                 return null;
         }

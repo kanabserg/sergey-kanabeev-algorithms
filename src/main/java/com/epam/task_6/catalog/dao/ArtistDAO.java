@@ -59,7 +59,7 @@ public interface ArtistDAO {
     Set<Artist> getAll() throws DAOException;
 
     /**
-     * Inserts Artist  =instances to the data source storage.
+     * Inserts Artist instances to the data source storage.
      *
      * @param artists  Set of Artist instances to be inserted.
      * @return true if all records inserted successfully.
