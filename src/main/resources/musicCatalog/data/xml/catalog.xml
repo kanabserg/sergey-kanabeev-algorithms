@@ -2,7 +2,6 @@
 <catalog>
     <artist id="1" title="System of a Down">
         <album genre="Альтернатива" id="1" title="Toxicity">
-            <song id="1" length="3.3" title="Chop Suey"/>
             <song id="2" length="3.39" title="Toxicity"/>
             <song id="3" length="6.11" title="Aerials"/>
         </album>
@@ -12,7 +11,7 @@
         </album>
     </artist>
     <artist id="2" title="Serj Tankian">
-        <album genre="Альтернатива" id="3" title="Toxicity">
+        <album genre="Альтернатива" id="3" title="Hurricane">
             <song id="6" length="3.3" title="Chop Suey"/>
         </album>
         <album genre="Альтернатива" id="4" title="Elect the dead">

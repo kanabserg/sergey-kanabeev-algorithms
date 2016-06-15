@@ -2,6 +2,7 @@ package com.epam.task_6.catalog.dao;
 
 
 import com.epam.task_6.catalog.dao.factory.DAOFactory;
+import com.epam.task_6.catalog.exceptions.ConnectionConfigurationException;
 import com.epam.task_6.catalog.exceptions.DAOException;
 import com.epam.task_6.catalog.model.Album;
 import com.epam.task_6.catalog.model.Artist;
@@ -18,7 +19,11 @@ import static org.junit.Assert.*;
  */
 public class TestArtistDAO {
 
-    private ArtistDAO artistDAO = DAOFactory.newInstance(DAOFactory.XML).getArtistDAO();
+    private ArtistDAO artistDAO;
+
+    public TestArtistDAO() throws ConnectionConfigurationException {
+        artistDAO = DAOFactory.newInstance(DAOFactory.XML).getArtistDAO();
+    }
 
     @Test
     public void testGetAll() throws DAOException {

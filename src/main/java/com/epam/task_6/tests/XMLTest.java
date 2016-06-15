@@ -2,6 +2,7 @@ package com.epam.task_6.tests;
 
 import com.epam.task_6.catalog.dao.ArtistDAO;
 import com.epam.task_6.catalog.dao.factory.DAOFactory;
+import com.epam.task_6.catalog.exceptions.ConnectionConfigurationException;
 import com.epam.task_6.catalog.exceptions.DAOException;
 import com.epam.task_6.catalog.model.Album;
 import com.epam.task_6.catalog.model.Artist;
@@ -16,14 +17,18 @@ public class XMLTest {
     private static final int ID_TO_FIND = 1;
     private static final int ID_TOD_UPDATE = 3;
     private static final int ID_TO_DELETE = 3;
+
     /**
      * Logger instance.
      */
     private static Logger log = Logger.getLogger(XMLTest.class);
 
+    /**
+     * Main method to run the test.
+     */
     public static void run() {
-        DAOFactory xmlFactory = DAOFactory.newInstance(DAOFactory.XML);
         try {
+            DAOFactory xmlFactory = DAOFactory.newInstance(DAOFactory.XML);
             ArtistDAO xmlArtistDAO = xmlFactory.getArtistDAO();
 
             //DAO getAll
@@ -53,7 +58,7 @@ public class XMLTest {
             else
                 log.info(String.format("Artist with id '%d' WAS NOT deleted, because it doesn't exist", ID_TO_DELETE));
 
-        } catch (DAOException | NullPointerException e) {
+        } catch (DAOException | NullPointerException | ConnectionConfigurationException e) {
             log.error(e.getClass() + " " + e.getMessage());
         }
     }

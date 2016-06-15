@@ -1,8 +1,8 @@
 package com.epam.task_6.catalog.io;
 
 import com.epam.task_6.catalog.io.entities.CatalogEntity;
+import com.epam.task_6.catalog.io.utils.ModelConverter;
 import com.epam.task_6.catalog.model.Catalog;
-import com.epam.task_6.catalog.utils.ModelConverter;
 
 import java.io.*;
 

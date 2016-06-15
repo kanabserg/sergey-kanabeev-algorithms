@@ -1,10 +1,13 @@
-package com.epam.task_6.catalog.utils;
+package com.epam.task_6.catalog.io.utils;
 
 import com.epam.task_6.catalog.io.entities.AlbumEntity;
 import com.epam.task_6.catalog.io.entities.ArtistEntity;
 import com.epam.task_6.catalog.io.entities.CatalogEntity;
 import com.epam.task_6.catalog.io.entities.SongEntity;
-import com.epam.task_6.catalog.model.*;
+import com.epam.task_6.catalog.model.Album;
+import com.epam.task_6.catalog.model.Artist;
+import com.epam.task_6.catalog.model.Catalog;
+import com.epam.task_6.catalog.model.Song;
 
 import java.util.*;
 import java.util.stream.Collectors;
